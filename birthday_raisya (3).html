@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>20th Birthday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'Cormorant Garamond',serif;overflow-x:hidden;background:#fff}
+section{min-height:100svh}
+img{max-width:100%}
+
+/* ── HERO ── */
+.hero{position:relative;height:100svh}
+.bg{width:100%;height:100%;object-fit:cover;display:block}
+.dark{position:absolute;inset:0;background:rgba(0,0,0,.38)}
+.hero-content{position:absolute;left:6%;bottom:14%;color:#fff}
+.hero-content h1{font-size:clamp(2.4rem,10vw,5rem);font-weight:300;line-height:1.05;letter-spacing:.04em}
+.age{font-size:clamp(4rem,18vw,8rem);font-style:italic;line-height:.95}
+.hero-content p{font-size:clamp(.9rem,3.5vw,1.2rem);margin-top:10px;letter-spacing:3px;opacity:.85}
+
+/* ── COLLAGE ── */
+.collage-section{position:relative;overflow:hidden;background:#111;min-height:100svh;display:flex;align-items:center;justify-content:center}
+#collage{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:16px;animation:zoom 20s linear infinite alternate}
+#collage img{width:100%;height:200px;object-fit:cover;border:6px solid #fff}
+.collage-overlay{position:absolute;inset:0;background:rgba(0,0,0,.52)}
+.center-text{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;color:#fff;text-align:center;padding:20px}
+.big{font-size:clamp(4rem,18vw,8rem);font-style:italic;line-height:.95}
+.center-text h2{font-size:clamp(1.1rem,4.5vw,2rem);font-weight:300;line-height:1.6}
+
+/* ── NOTE + POLAROID ── */
+.rank-section{padding:clamp(28px,7vw,60px);background:#f9eef3}
+.rank-section h2{font-size:clamp(3rem,12vw,5rem);font-weight:300}
+.rank-section h3{font-size:clamp(1.2rem,4.5vw,2rem);font-weight:300;margin-bottom:28px;color:#b06080}
+.rank-grid{display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap}
+.note{background:#fff;padding:28px;max-width:420px;box-shadow:0 8px 28px rgba(180,100,130,.18);border-top:3px solid #e8a0b8;flex:1 1 260px}
+.note h4{font-size:1.4rem;margin-bottom:10px;color:#c0607a}
+.note p{font-size:1.05rem;line-height:1.9;color:#444;white-space:pre-line}
+.photos{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;justify-content:center}
+.polaroid{width:clamp(110px,28vw,200px);height:clamp(140px,35vw,240px);background:#fff;padding:8px;box-shadow:0 8px 20px rgba(0,0,0,.18);object-fit:cover;display:block}
+.rot1{transform:rotate(-7deg)}
+.rot2{transform:rotate(5deg)}
+.rot3{transform:rotate(-2deg)}
+
+/* ── LETTER SECTION ── */
+/* Gabung letter + yt jadi satu blok vertikal mengalir */
+.letter-section{
+  display:flex;
+  flex-direction:column;
+}
+
+.letter{
+  padding:clamp(32px,7vw,60px) clamp(24px,6vw,50px);
+  font-size:clamp(1.05rem,3.8vw,1.3rem);
+  line-height:2;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  background:#fff;
+}
+.letter h2{font-size:clamp(2rem,7vw,3rem);margin-bottom:24px;font-weight:300}
+.letter p{color:#444;margin-bottom:14px;white-space:pre-line}
+.letter .sign{margin-top:28px;font-style:italic;font-size:clamp(1.2rem,4vw,1.5rem);color:#c0607a}
+
+/* ── YOUTUBE SECTION — gradasi dari putih ke pink, tanpa kotak ── */
+.yt-section{
+  /* gradasi mulus dari putih (sambung letter) ke pink gelap */
+  background:linear-gradient(to bottom,
+    #ffffff 0%,
+    #fff0f5 15%,
+    #ffd6e8 35%,
+    #ffadd2 55%,
+    #f472b6 75%,
+    #db2777 100%
+  );
+  padding:clamp(60px,12vw,100px) clamp(24px,6vw,60px) clamp(70px,14vw,120px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:36px;
+  position:relative;
+  overflow:hidden;
+  min-height:70svh;
+  justify-content:center;
+}
+
+/* gelembung blur melayang */
+.bubble{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,255,255,.22);
+  filter:blur(2px);
+  animation:float linear infinite;
+  pointer-events:none;
+}
+
+/* teks yt */
+.yt-label{
+  font-size:clamp(1.8rem,7vw,3.2rem);
+  font-weight:300;
+  color:#fff;
+  text-align:center;
+  line-height:1.4;
+  position:relative;
+  z-index:2;
+  text-shadow:0 2px 20px rgba(180,40,100,.25);
+  animation:fadeUp .9s ease both;
+}
+.yt-label span{font-style:italic}
+
+.yt-sub{
+  font-size:clamp(.95rem,3.5vw,1.2rem);
+  color:rgba(255,255,255,.85);
+  text-align:center;
+  position:relative;
+  z-index:2;
+  letter-spacing:.06em;
+  animation:fadeUp .9s .15s ease both;
+}
+
+/* tombol */
+.yt-btn{
+  position:relative;
+  z-index:2;
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  background:#fff;
+  color:#be185d;
+  text-decoration:none;
+  padding:clamp(14px,4vw,20px) clamp(32px,8vw,52px);
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.15rem,4.5vw,1.6rem);
+  border-radius:60px;
+  box-shadow:0 8px 32px rgba(180,30,100,.3);
+  font-weight:700;
+  letter-spacing:.04em;
+  animation:fadeUp .9s .3s ease both, pulse 3s 1.5s ease-in-out infinite;
+  transition:transform .2s,box-shadow .2s;
+}
+.yt-btn:active{transform:scale(.97)}
+.yt-icon{width:30px;height:30px;fill:#FF0000;flex-shrink:0}
+
+/* ── bintang / sparkle kecil ── */
+.sparkle{
+  position:absolute;
+  width:6px;height:6px;
+  background:#fff;
+  border-radius:50%;
+  opacity:0;
+  animation:twinkle ease-in-out infinite;
+  pointer-events:none;
+}
+
+/* ── ANIMASI ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 8px 32px rgba(180,30,100,.3)}
+  50%{box-shadow:0 12px 48px rgba(180,30,100,.55),0 0 0 8px rgba(255,255,255,.12)}
+}
+@keyframes float{
+  from{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-40px) scale(1.08)}
+  to{transform:translateY(0) scale(1)}
+}
+@keyframes twinkle{
+  0%,100%{opacity:0;transform:scale(.6)}
+  50%{opacity:.9;transform:scale(1.3)}
+}
+@keyframes zoom{from{transform:scale(1)}to{transform:scale(1.15)}}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(50px);transition:opacity .9s ease,transform .9s ease}
+.reveal.show{opacity:1;transform:none}
+
+/* desktop */
+@media(min-width:769px){
+  .letter-section{flex-direction:row;min-height:100svh}
+  .letter{width:50%;justify-content:center}
+  .yt-section{
+    width:50%;
+    min-height:100svh;
+    background:linear-gradient(to bottom,
+      #ffffff 0%,
+      #fff0f5 10%,
+      #ffd6e8 30%,
+      #ffadd2 50%,
+      #f472b6 72%,
+      #db2777 100%
+    );
+  }
+}
+
+@media(max-width:480px){
+  #collage{grid-template-columns:repeat(3,1fr)}
+  #collage img{height:130px;border-width:4px}
+}
+
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <img id="coverPhoto" class="bg" alt="cover">
+  <div class="dark"></div>
+  <div class="hero-content reveal">
+    <h1>HAPPY<br>BIRTHDAY!</h1>
+    <div class="age">20th</div>
+    <p>June 24, 2026</p>
+  </div>
+</section>
+
+<!-- COLLAGE -->
+<section class="collage-section">
+  <div id="collage"></div>
+  <div class="collage-overlay"></div>
+  <div class="center-text reveal">
+    <div class="big">What</div>
+    <h2>things you get when<br>you turn</h2>
+    <div class="big">20</div>
+  </div>
+</section>
+
+<!-- NOTE + POLAROID -->
+<section class="rank-section reveal">
+  <div class="rank-grid">
+    <div class="note">
+      <h4>For Raisya,</h4>
+      <p>You are beautiful in your own way.
+I admire your kindness. I admire the way you think.
+I admire you for caring when nobody else does.
+But if you asked me how I fell in love with you, I don't know.
+It just happened.</p>
+    </div>
+    <div class="photos">
+      <img id="p1" class="polaroid rot1" alt="foto 1">
+      <img id="p2" class="polaroid rot2" alt="foto 2">
+      <img id="p3" class="polaroid rot3" alt="foto 3">
+    </div>
+  </div>
+</section>
+
+<!-- LETTER + YOUTUBE -->
+<section class="letter-section">
+
+  <div class="letter reveal">
+    <h2>Happy Birthday, Raisya.</h2>
+    <p>Barakallah fi umriik.
+
+Semoga kamu selalu bahagia, harapanku hanya yang terbaik untukmu.
+Aku harap kamu bisa mencintai dirimu layaknya orang-orang terdekat kamu yang mencintai kamu.
+
+Kamu berhak bahagia.
+You deserve all of happiness.
+I love you. Happy twenties.</p>
+    <div class="sign">— Keza</div>
+  </div>
+
+  <div class="yt-section reveal" id="ytSection">
+    <div class="yt-label"><br><span></span></div>
+    <p class="yt-sub"></p>
+    <a id="ytBtn" class="yt-btn" href="https://youtu.be/CbXA188dcZI?si=3ZsydFhvHcbQDoQ-" target="_blank" rel="noopener">
+      <svg class="yt-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+      </svg>
+    </a>
+  </div>
+
+</section>
+
+<script>
+
+// ── GANTI URL DI SINI ──────────────────────────────────────
+const coverPhoto = "https://i.ibb.co.com/DDzs5SsH/original-2026-03-30-201948-EB1-FCD6007-D5.jpg";
+
+const collagePhotos = [
+  "https://i.ibb.co.com/DDzs5SsH/original-2026-03-30-201948-EB1-FCD6007-D5.jpg",
+  "https://i.ibb.co.com/ch0kFv3K/IMG-1193.jpg",
+  "https://i.ibb.co.com/1Jq95DJD/IMG-8467.jpg",
+];
+
+const polaroidPhotos = [
+  "https://i.ibb.co.com/DDzs5SsH/original-2026-03-30-201948-EB1-FCD6007-D5.jpg",
+  "https://i.ibb.co.com/ch0kFv3K/IMG-1193.jpg",
+  "https://i.ibb.co.com/1Jq95DJD/IMG-8467.jpg",
+];
+
+const youtubeUrl = "https://youtu.be/CbXA188dcZI?si=3ZsydFhvHcbQDoQ-";
+// ───────────────────────────────────────────────────────────
+
+document.getElementById('coverPhoto').src = coverPhoto;
+document.getElementById('p1').src = polaroidPhotos[0];
+document.getElementById('p2').src = polaroidPhotos[1];
+document.getElementById('p3').src = polaroidPhotos[2];
+document.getElementById('ytBtn').href = youtubeUrl;
+
+// Collage
+const collageEl = document.getElementById('collage');
+for (let i = 0; i < 40; i++) {
+  const img = document.createElement('img');
+  img.src = collagePhotos[i % collagePhotos.length];
+  img.alt = 'foto ' + (i + 1);
+  img.loading = 'lazy';
+  collageEl.appendChild(img);
+}
+
+// Gelembung mengambang
+const ytSection = document.getElementById('ytSection');
+for (let i = 0; i < 10; i++) {
+  const b = document.createElement('div');
+  b.className = 'bubble';
+  const size = 30 + Math.random() * 80;
+  b.style.cssText = `
+    width:${size}px;height:${size}px;
+    left:${Math.random()*100}%;
+    top:${20 + Math.random()*70}%;
+    animation-duration:${6 + Math.random()*8}s;
+    animation-delay:${Math.random()*5}s;
+    opacity:${0.08 + Math.random()*.15};
+  `;
+  ytSection.appendChild(b);
+}
+
+// Sparkle / bintang kecil
+for (let i = 0; i < 18; i++) {
+  const s = document.createElement('div');
+  s.className = 'sparkle';
+  s.style.cssText = `
+    left:${Math.random()*100}%;
+    top:${Math.random()*100}%;
+    animation-duration:${1.5 + Math.random()*2.5}s;
+    animation-delay:${Math.random()*3}s;
+    width:${4 + Math.random()*5}px;
+    height:${4 + Math.random()*5}px;
+  `;
+  ytSection.appendChild(s);
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+</script>
+</body>
+</html>
